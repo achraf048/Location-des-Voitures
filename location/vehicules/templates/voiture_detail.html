@@ -1,0 +1,269 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ car.nom }} | ExecRent</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Same CSS as homepage -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <style>
+        /* Extra styles just for detail page */
+        .detail-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .detail-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .detail-image {
+            height: 100%;
+            min-height: 400px;
+        }
+        
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .detail-info {
+            padding: 40px 40px 40px 0;
+        }
+        
+        .detail-brand {
+            font-size: 14px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .detail-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--gray-800);
+        }
+        
+        .detail-price {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .detail-price span {
+            font-size: 16px;
+            font-weight: normal;
+            color: var(--gray-600);
+        }
+        
+        .detail-specs {
+            display: flex;
+            gap: 24px;
+            margin: 24px 0;
+            padding: 20px 0;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .spec-item i {
+            font-size: 20px;
+            color: var(--accent);
+        }
+        
+        .spec-item span {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+        
+        .detail-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin: 24px 0;
+        }
+        
+        .rent-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .rent-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-600);
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        
+        .back-link:hover {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .detail-card {
+                grid-template-columns: 1fr;
+            }
+            .detail-info {
+                padding: 0 20px 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Same header as homepage -->
+<header id="header">
+    <div class="container">
+        <div class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 16L16 4L28 16L16 28L4 16Z" fill="#1a4d8c" stroke="#1a4d8c" stroke-width="2"/>
+                <circle cx="16" cy="16" r="4" fill="white"/>
+            </svg>
+            <span>EXEC<span class="accent">RENT</span></span>
+        </div>
+
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="/">Nos Voitures</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+            <button class="login-btn">Se connecter</button>
+            <button class="signup-btn">S'inscrire</button>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Detail Content -->
+<div class="detail-container">
+    <a href="/" class="back-link">
+        <i class="fas fa-arrow-left"></i> Retour à l'accueil
+    </a>
+    
+    <div class="detail-card">
+        <div class="detail-image">
+            <img src="{% static 'images/voitures/' %}{{ car.image }}" alt="{{ car.nom }}">
+        </div>
+        
+        <div class="detail-info">
+            <div class="detail-brand">{{ car.marque|default:"Executive" }}</div>
+            <h1 class="detail-title">{{ car.nom }}</h1>
+            
+            <div class="detail-price">
+                {{ car.prix }} DH <span>/ jour</span>
+            </div>
+            
+            <div class="detail-specs">
+                <div class="spec-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>0-50k km</span>
+                </div>
+                <div class="spec-item">
+                    <i class="fas fa-chair"></i>
+                    <span>5 places</span>
+                </div>
+                <div class="spec-item">
+                    <i class="fas fa-gas-pump"></i>
+                    <span>{{ car.carburant|default:"Essence" }}</span>
+                </div>
+                <div class="spec-item">
+                    <i class="fas fa-car"></i>
+                    <span>{{ car.categorie|default:"Berline" }}</span>
+                </div>
+            </div>
+            
+            <div class="detail-description">
+                <p>{{ car.description }}</p>
+            </div>
+            
+            <button class="rent-btn" onclick="reserver()">
+                <i class="fas fa-calendar-check"></i> Réserver maintenant
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span>EXEC<span class="accent">RENT</span></span>
+                </div>
+                <p>Location de voiture simple et rapide.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Liens</h4>
+                <ul>
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><i class="fas fa-phone-alt"></i> +212 6XX XXX XXX</p>
+                <p><i class="fas fa-envelope"></i> contact@execrent.ma</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 ExecRent - Projet étudiant</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function reserver() {
+        alert("Merci ! La voiture a été réservée. Un email de confirmation vous sera envoyé.");
+    }
+</script>
+
+</body>
+</html>

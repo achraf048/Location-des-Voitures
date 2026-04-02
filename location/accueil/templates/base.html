@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CarRental - Location de Voitures{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+    <div class="container">
+        <div class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 16L16 4L28 16L16 28L4 16Z" fill="#1a4d8c" stroke="#1a4d8c" stroke-width="2"/>
+                <circle cx="16" cy="16" r="4" fill="white"/>
+            </svg>
+            <span>CAR<span class="accent">RENT</span></span>
+        </div>
+
+        <nav>
+            <a href="{% url 'accueil' %}" class="active">Accueil</a>
+            <a href="#">Nos Voitures</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+            <button class="login-btn">Se connecter</button>
+            <button class="signup-btn">S'inscrire</button>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span>CAR<span class="accent">RENT</span></span>
+                </div>
+                <p>La location de voiture simple, rapide et pas chère.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Liens rapides</h4>
+                <ul>
+                    <li><a href="#">Nos voitures</a></li>
+                    <li><a href="#">Tarifs</a></li>
+                    <li><a href="#">Points de retrait</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Aide</h4>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Conditions générales</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p><i class="fas fa-phone-alt"></i> +212 6XX XXX XXX</p>
+                <p><i class="fas fa-envelope"></i> contact@carrent.ma</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 CarRent - Projet Django</p>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

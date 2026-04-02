@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Accueil | CarRental{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-car"></i> Location simple et rapide
+                </div>
+                <h1>Louez la voiture <span class="highlight">de vos rêves</span><br>au meilleur prix</h1>
+                <p>Des voitures pour tous les goûts et tous les budgets. Réservez en quelques clics !</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">Voir les voitures <i class="fas fa-arrow-right"></i></button>
+                    <button class="btn-secondary">Nous contacter <i class="fas fa-headset"></i></button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="number">100+</span>
+                        <span class="label">Voitures disponibles</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">95%</span>
+                        <span class="label">Clients satisfaits</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">24/7</span>
+                        <span class="label">Support client</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-search-card">
+                <div class="search-header">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Réservez votre voiture</h3>
+                </div>
+                <div class="search-form">
+                    <div class="input-group">
+                        <label>Lieu de retrait</label>
+                        <div class="input-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" placeholder="Ville, aéroport...">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Date de début</label>
+                            <div class="input-icon">
+                                <i class="fas fa-calendar"></i>
+                                <input type="date">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Date de fin</label>
+                            <div class="input-icon">
+                                <i class="fas fa-calendar"></i>
+                                <input type="date">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="search-btn">Rechercher <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FILTER SECTION -->
+<section class="filter-section">
+    <div class="container">
+        <div class="filter-wrapper">
+            <div class="filter-title">
+                <i class="fas fa-sliders-h"></i>
+                <span>Filtrer les voitures</span>
+            </div>
+            <div class="filter-controls">
+                <div class="filter-input">
+                    <i class="fas fa-search"></i>
+                    <input id="searchInput" type="text" placeholder="Rechercher un modèle...">
+                </div>
+                <div class="filter-select">
+                    <i class="fas fa-car"></i>
+                    <select id="categoryFilter">
+                        <option value="">Toutes catégories</option>
+                        <option value="Sport">Sportive</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Sedan">Berline</option>
+                        <option value="Citadine">Citadine</option>
+                    </select>
+                </div>
+                <div class="filter-select">
+                    <i class="fas fa-gas-pump"></i>
+                    <select id="fuelFilter">
+                        <option value="">Carburant</option>
+                        <option value="Essence">Essence</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Electrique">Électrique</option>
+                        <option value="Hybride">Hybride</option>
+                    </select>
+                </div>
+                <button id="resetFiltersBtn" class="reset-btn">
+                    <i class="fas fa-redo-alt"></i> Réinitialiser
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FLEET SECTION -->
+<section class="fleet-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Notre collection</div>
+            <h2>Choisissez votre voiture</h2>
+            <p>Des véhicules entretenus régulièrement pour votre sécurité et confort.</p>
+        </div>
+
+        <div class="grid" id="carGrid">
+            {% for car in cars %}
+            <div class="card" data-name="{{ car.nom }}" data-category="{{ car.categorie|default:'' }}" data-fuel="{{ car.carburant|default:'' }}">
+                <div class="card-media">
+                    {% if car.image %}
+                    <img src="{% static 'images/voitures/' %}{{ car.image }}" alt="{{ car.nom }}">
+                    {% else %}
+                    <div style="background: #e0e0e0; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-car" style="font-size: 48px; color: #999;"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-badge">
+                        {% if car.est_promo %}
+                        <span class="featured">-{{ car.reduction_promo }}%</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="car-meta">
+                        <span class="car-brand">{{ car.marque }}</span>
+                        <div class="car-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.5</span>
+                        </div>
+                    </div>
+                    <h3>{{ car.nom }}</h3>
+                    <div class="car-specs">
+                        {% if car.kilometrage %}
+                        <span><i class="fas fa-tachometer-alt"></i> {{ car.kilometrage }} km</span>
+                        {% endif %}
+                        {% if car.nb_places %}
+                        <span><i class="fas fa-chair"></i> {{ car.nb_places }} places</span>
+                        {% endif %}
+                        {% if car.carburant %}
+                        <span><i class="fas fa-gas-pump"></i> {{ car.carburant }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="car-price">
+                        {% if car.est_promo %}
+                        <span class="price" style="text-decoration: line-through; font-size: 18px; color: #999;">{{ car.prix_par_jour }} DH</span>
+                        <span class="price">{{ car.prix_final|floatformat:0 }} DH</span>
+                        {% else %}
+                        <span class="price">{{ car.prix_par_jour }} DH</span>
+                        {% endif %}
+                        <span class="period">/ jour</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="{% url 'voiture_detail' car.id %}" class="view-details">
+                            Détails <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <button class="order-btn" data-car="{{ car.nom }}">
+                            Réserver
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <i class="fas fa-car-side"></i>
+                <h3>Aucune voiture disponible</h3>
+                <p>Revenez plus tard, de nouvelles voitures arrivent bientôt !</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- PAGINATION -->
+        {% if cars.has_other_pages %}
+        <div class="pagination-wrapper">
+            <div class="pagination">
+                {% if cars.has_previous %}
+                    <a href="?page={{ cars.previous_page_number }}" class="page-nav">
+                        <i class="fas fa-chevron-left"></i> Précédent
+                    </a>
+                {% endif %}
+                
+                <div class="page-numbers">
+                    {% for i in cars.paginator.page_range %}
+                        {% if cars.number == i %}
+                            <span class="current-page">{{ i }}</span>
+                        {% else %}
+                            <a href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                {% if cars.has_next %}
+                    <a href="?page={{ cars.next_page_number }}" class="page-nav">
+                        Suivant <i class="fas fa-chevron-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="features">
+    <div class="container">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4>Assurance incluse</h4>
+                <p>Protection complète pour chaque location</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h4>Assistance 24/7</h4>
+                <p>Dépannage partout au Maroc</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h4>Meilleurs prix</h4>
+                <p>Pas de frais cachés</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h4>Annulation gratuite</h4>
+                <p>Jusqu'à 24h avant</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
