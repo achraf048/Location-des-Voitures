@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - CarRent</title>
+    <link rel="stylesheet" href="/static/css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-car"></i>
+                    <span>Car<span class="accent">Rent</span></span>
+                </div>
+                <h2>Bon retour</h2>
+                <p>Connectez-vous à votre compte</p>
+            </div>
+
+            <form method="POST" action="" class="auth-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_username">
+                        <i class="fas fa-envelope"></i>
+                        Email ou Nom d'utilisateur
+                    </label>
+                    {{ form.username }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password">
+                        <i class="fas fa-lock"></i>
+                        Mot de passe
+                    </label>
+                    {{ form.password }}
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="remember">
+                        <span>Se souvenir de moi</span>
+                    </label>
+                    <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Se connecter
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Vous n'avez pas de compte ? <a href="{% url 'register' %}">Inscrivez-vous</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>

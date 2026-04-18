@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - CarRent</title>
+    <link rel="stylesheet" href="/static/css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-card auth-card-register">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-car"></i>
+                    <span>Car<span class="accent">Rent</span></span>
+                </div>
+                <h2>Créer un compte</h2>
+                <p>Rejoignez-nous et commencez votre voyage</p>
+            </div>
+
+            <form method="POST" action="" class="auth-form">
+                {% csrf_token %}
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_first_name">
+                            <i class="fas fa-user"></i>
+                            Prénom
+                        </label>
+                        <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Jean" value="{{ form.first_name.value|default:'' }}" required>
+                        {% if form.first_name.errors %}
+                            <div class="errorlist">{{ form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_last_name">
+                            <i class="fas fa-user"></i>
+                            Nom
+                        </label>
+                        <input type="text" name="last_name" id="id_last_name" class="form-control" placeholder="Dupont" value="{{ form.last_name.value|default:'' }}" required>
+                        {% if form.last_name.errors %}
+                            <div class="errorlist">{{ form.last_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_username">
+                        <i class="fas fa-user-circle"></i>
+                        Nom d'utilisateur
+                    </label>
+                    <input type="text" name="username" id="id_username" class="form-control" placeholder="johndoe" value="{{ form.username.value|default:'' }}" required>
+                    {% if form.username.errors %}
+                        <div class="errorlist">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_email">
+                        <i class="fas fa-envelope"></i>
+                        Adresse email
+                    </label>
+                    <input type="email" name="email" id="id_email" class="form-control" placeholder="jean@exemple.com" value="{{ form.email.value|default:'' }}" required>
+                    {% if form.email.errors %}
+                        <div class="errorlist">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_password1">
+                            <i class="fas fa-lock"></i>
+                            Mot de passe
+                        </label>
+                        <input type="password" name="password1" id="id_password1" class="form-control" placeholder="••••••••" required>
+                        {% if form.password1.errors %}
+                            <div class="errorlist">{{ form.password1.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_password2">
+                            <i class="fas fa-lock"></i>
+                            Confirmer le MDP
+                        </label>
+                        <input type="password" name="password2" id="id_password2" class="form-control" placeholder="••••••••" required>
+                        {% if form.password2.errors %}
+                            <div class="errorlist">{{ form.password2.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-user-plus"></i>
+                    S'inscrire
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Vous avez déjà un compte ? <a href="{% url 'login' %}">Connectez-vous</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>

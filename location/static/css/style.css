@@ -104,6 +104,7 @@ nav a:hover, nav a.active {
     cursor: pointer;
     transition: all 0.2s;
     border: none;
+    text-decoration: none;
 }
 
 .login-btn {
@@ -147,7 +148,7 @@ nav a:hover, nav a.active {
     position: absolute;
     top: 0;
     right: 0;
-    width: 50%;
+    width: 40%;
     height: 100%;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><path fill="rgba(198,161,91,0.08)" d="M0,0 L800,0 L800,600 L0,600 Z M400,200 L500,300 L400,400 L300,300 Z"/><circle cx="650" cy="150" r="80" fill="rgba(198,161,91,0.05)"/></svg>') repeat;
     opacity: 0.5;
@@ -266,6 +267,7 @@ nav a:hover, nav a.active {
     background: white;
     border-radius: 24px;
     padding: 28px;
+    min-width: 250px;
     box-shadow: var(--shadow-xl);
 }
 
